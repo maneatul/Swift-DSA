@@ -32,7 +32,7 @@ public struct ArrayQueue<T>: Queue {
     var peek: T? {
         guard !isEmpty else { return nil }
         
-        return elements.first
+        return elements[head]
     }
     
     mutating func enqueue(_ element: T) {
@@ -59,12 +59,13 @@ extension ArrayQueue: CustomStringConvertible {
 
 var arrayQueue = ArrayQueue<Int>()
 
+arrayQueue.isEmpty
 arrayQueue.enqueue(5)
 arrayQueue.enqueue(1)
 arrayQueue.enqueue(2)
 arrayQueue.enqueue(3)
 arrayQueue.enqueue(4)
-
+arrayQueue.isEmpty
 
 arrayQueue.description
 
@@ -88,6 +89,7 @@ arrayQueue1.description
 arrayQueue1.dequeue()
 arrayQueue1.dequeue()
 arrayQueue1.enqueue("Anushree")
+
 
 arrayQueue1.description
 
@@ -188,3 +190,4 @@ print(linkedQueue)
 linkedQueue.dequeue()
 linkedQueue.enqueue(8)
 print(linkedQueue)
+
