@@ -53,9 +53,13 @@ public struct CircularQueue<T> {
         }
         
         if(front == rear) {
-            front = -1
-            rear = -1
+            defer {
+                front = -1
+                rear = -1
+            }
+        return elements[front] as? T
         }
+        
         defer {
             front = (front + 1) % capacity
             count -= 1
