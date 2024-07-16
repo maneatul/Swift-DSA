@@ -230,5 +230,5 @@ linkedList.reverse()
 print(linkedList.head ?? "")
 linkedList.findNodeFromFront(at: 0)
 linkedList.findNodeFromLast(at: 0)
-linkedList.findNodeFromLast(at: 4)
+linkedList.findNodeFromLast(at: 2)
 
