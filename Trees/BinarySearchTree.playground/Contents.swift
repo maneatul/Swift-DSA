@@ -244,7 +244,7 @@ bst.insert(value: 3)
 bst.printInorder()
 print("------------------------------------")
 bst.removeElement(element: 7)
-print(bst.root)
+bst.printInorder()
 
 print("Height of BST is: ", bst.findHeightOfBST())
 
