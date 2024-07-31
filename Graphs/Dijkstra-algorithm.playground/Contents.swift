@@ -129,6 +129,7 @@ class Graph {
     }
 }
 
+
 let graph = Graph()
 graph.addVertex("A")
 graph.addVertex("B")
