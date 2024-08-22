@@ -9,7 +9,7 @@ func binarySearchIterative(array: [Int], target: Int) -> Int? {
     var right = array.count-1
     
     while left <= right {
-        let mid = left + (right-left)/2
+        let mid = (left + right) / 2 //left + (right-left)/2
         
         if array[mid] == target { return mid } else
         if array[mid] < target {
@@ -36,7 +36,7 @@ func recursiveBSR(array: [Int], target: Int, left: Int, right: Int) -> Int? {
         return nil
     }
  
-    let mid = left + (right-left)/2
+    let mid = (left + right) / 2 //left + (right-left)/2
     
     if array[mid] == target {
         return mid
