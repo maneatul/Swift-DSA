@@ -1,21 +1,16 @@
 import Foundation
 
 
-protocol Queue {
-    
-    associatedtype T
-    
-    var count: Int { get }
+protocol Queueable {
+    associatedtype Element
+    mutating func enqueue(_ element: Element)
+    mutating func dequeue() -> Element?
+    var peek: Element? { get }
     var isEmpty: Bool { get }
-    var peek: T? { get }
-    
-    mutating func enqueue(_ element: T)
-    mutating func dequeue() -> T?
-    
+    var count: Int { get }
 }
 
-
-public struct ArrayQueue<T>: Queue {
+public struct ArrayQueue<T>: Queueable {
     
     private var elements: [T] = []
         

@@ -1,7 +1,16 @@
 
 import Foundation
 
-public struct CircularQueue<T> {
+protocol Queueable {
+    associatedtype Element
+    mutating func enqueue(_ element: Element)
+    mutating func dequeue() -> Element?
+    var peek: Element? { get }
+    var isEmpty: Bool { get }
+    var count: Int { get }
+}
+
+public struct CircularQueue<T>: Queueable {
     
     let elements: NSMutableArray
     let capacity: Int
@@ -13,13 +22,14 @@ public struct CircularQueue<T> {
     var isEmpty: Bool {
         rear == -1 && front == -1
     }
-    
-    var top: T? {
-        guard !isEmpty else { return nil }
-        return elements[front] as? T
-    }
+
     var isFull: Bool {
         front == (rear + 1) % capacity
+    }
+    
+    var peek: T? {
+        guard !isEmpty else { return nil }
+        return elements[front] as? T
     }
     
     public init(capacity: Int) {
@@ -27,7 +37,7 @@ public struct CircularQueue<T> {
         self.elements = NSMutableArray(capacity: capacity)
     }
         
-    mutating func enqueue(element: T) {
+    mutating func enqueue(_ element: T) {
         if front == -1 {
                 front = 0
                 rear = 0
@@ -86,27 +96,27 @@ public struct CircularQueue<T> {
 var circularQueue = CircularQueue<Int>(capacity: 5)
 
 circularQueue.count
-circularQueue.enqueue(element: 4)
-circularQueue.enqueue(element: 5)
-circularQueue.enqueue(element: 6)
-circularQueue.enqueue(element: 7)
-circularQueue.enqueue(element: 8)
+circularQueue.enqueue(4)
+circularQueue.enqueue(5)
+circularQueue.enqueue(6)
+circularQueue.enqueue(7)
+circularQueue.enqueue(8)
 circularQueue.dequeue()
-circularQueue.enqueue(element: 9)
-circularQueue.enqueue(element: 2)
+circularQueue.enqueue(9)
+circularQueue.enqueue(2)
 circularQueue.display()
 
 
-circularQueue.top
+circularQueue.peek
 circularQueue.dequeue()
 circularQueue.dequeue()
 circularQueue.dequeue()
-circularQueue.enqueue(element: 2)
-circularQueue.enqueue(element: 1)
+circularQueue.enqueue(2)
+circularQueue.enqueue(1)
 circularQueue.dequeue()
-circularQueue.enqueue(element: 4)
-circularQueue.enqueue(element: 0)
-circularQueue.top
+circularQueue.enqueue(4)
+circularQueue.enqueue(0)
+circularQueue.peek
 
 circularQueue.display()
 circularQueue.count

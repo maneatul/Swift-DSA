@@ -1,13 +1,20 @@
-//: [Previous](@previous)
-
 import Foundation
 
-struct PriorityQueue<Element: Equatable> {
-    
-    private var heap: [Element]
-    private let priorityFunction: (Element, Element) -> Bool
+protocol PriorityQueueable {
+    associatedtype Element: Comparable
+    mutating func enqueue(_ element: Element)
+    mutating func dequeue() -> Element?
+    func peek() -> Element?
+    var isEmpty: Bool { get }
+    var count: Int { get }
+}
 
-    init(priorityFunction: @escaping (Element, Element) -> Bool) {
+struct PriorityQueue<T: Comparable>: PriorityQueueable {
+    
+    private var heap: [T]
+    private let priorityFunction: (T, T) -> Bool
+
+    init(priorityFunction: @escaping (T, T) -> Bool) {
         self.heap = []
         self.priorityFunction = priorityFunction
     }
@@ -20,16 +27,19 @@ struct PriorityQueue<Element: Equatable> {
         return heap.count
     }
 
-    func peek() -> Element? {
+    func peek() -> T? {
         return heap.first
     }
-
-    mutating func enqueue(_ element: Element) {
+    
+    func print() {
+        debugPrint(heap)
+    }
+    mutating func enqueue(_ element: T) {
         heap.append(element)
         siftUp(from: heap.count - 1)
     }
 
-    mutating func dequeue() -> Element? {
+    mutating func dequeue() -> T? {
         guard !heap.isEmpty else { debugPrint("PQueue is Empty"); return nil }
         if heap.count == 1 {
             return heap.removeLast()
@@ -41,7 +51,7 @@ struct PriorityQueue<Element: Equatable> {
         }
     }
 
-    mutating func changePriority(at index: Int, value: Element) {
+    mutating func changePriority(at index: Int, value: T) {
         guard index < heap.count else { return }
         heap[index] = value
         if !siftUp(from: index) {
@@ -114,6 +124,7 @@ maxHeap.enqueue(4)
 maxHeap.enqueue(8)
 maxHeap.enqueue(4)
 maxHeap.count
+maxHeap.print()
 
 maxHeap.dequeue()
 maxHeap.dequeue()
@@ -125,6 +136,8 @@ maxHeap.peek()
 maxHeap.enqueue(7)
 maxHeap.peek()
 maxHeap.count
+maxHeap.print()
+
 
 var maxHeap2 = PriorityQueue<Character>(priorityFunction: >)
 maxHeap2.enqueue("D")
